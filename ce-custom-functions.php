@@ -99,11 +99,20 @@ if(!class_exists('Ce_Widget')) {
             } else {
                 $ce_widget_title = 'CE Posts';
             }
+            if( $instance) {
+                $ce_no_of_posts = isset($instance['ce_no_of_posts']) ? esc_attr($instance['ce_no_of_posts']) : "";           
+            } else {
+                $ce_no_of_posts = 3;
+            }
             ?>
             <p>
                 <label for="<?php echo $this->get_field_id('ce_widget_title'); ?>"><?php _e('CE Widget Title:', 'wp_widget_plugin'); ?></label>
                 <input id="<?php echo $this->get_field_id('ce_widget_title'); ?>" class="widefat" name="<?php echo $this->get_field_name('ce_widget_title'); ?>" type="text" value="<?php echo $ce_widget_title; ?>" />
-            </p>  
+            </p> 
+            <p>
+                <label for="<?php echo $this->get_field_id('ce_no_of_posts'); ?>"><?php _e('Number of posts to show:', 'wp_widget_plugin'); ?></label>
+                <input id="<?php echo $this->get_field_id('ce_no_of_posts'); ?>"  name="<?php echo $this->get_field_name('ce_no_of_posts'); ?>" type="text" value="<?php echo $ce_no_of_posts; ?>" />
+            </p> 
         <?php
         }
 
@@ -112,6 +121,7 @@ if(!class_exists('Ce_Widget')) {
             $instance = $old_instance;
             // Fields
             $instance['ce_widget_title'] = strip_tags($new_instance['ce_widget_title']);
+            $instance['ce_no_of_posts'] = strip_tags($new_instance['ce_no_of_posts']);
             return $instance;
         }
         // display widget
@@ -122,8 +132,10 @@ if(!class_exists('Ce_Widget')) {
             {
                 extract( $args );
                 // these are the widget options
+                
                 $ce_widget_title = apply_filters('widget_title', $instance['ce_widget_title']);
-                //echo $before_widget;
+                $ce_no_of_posts = $instance['ce_no_of_posts'];
+               //echo $ce_no_of_posts;
                 
             $custom_post_id = get_the_ID();            
             if(!$custom_post_id)
@@ -144,11 +156,14 @@ if(!class_exists('Ce_Widget')) {
                 $content .= "<ul class='latest-posts'>";
                 $the_query = new WP_Query(
                                 array(
-                                    'post_type' => 'post'
+                                    'post_type' => 'post',
+                                    'orderby'   => 'date',
+                                    'order'     => 'DESC',
                             ));
                 $all_posts = $the_query->get_posts();
              //Display posts 
                 $count_matched_posts = 0;
+                
                 foreach($all_posts as $post) {
                     //var_dump($post);
                     $post_terms = wp_get_post_terms( $post->ID, $custompress_taxonomy); 
@@ -165,10 +180,13 @@ if(!class_exists('Ce_Widget')) {
                                         $content .= "<li><a href='$link' target='_top'>$title </a </li>\n";
                                         $count_matched_posts++;
                                         //$content .= "<p class='excerpt'>" . get_the_excerpt() . "</p>";
-                                   }
-                                }
+                                   }                                  
+                                }                                 
+                                 if($count_matched_posts >= $ce_no_of_posts)
+                                       break 3;
                             }
-                        }// end of for
+                           
+                        }// end of for                       
                     }// end of foreach
                  $content .= "</ul> </div>";      
                  wp_reset_query(); 
