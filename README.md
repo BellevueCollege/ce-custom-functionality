@@ -33,8 +33,8 @@ _Frontend example_
 	}
 
 ##Acceptance Criteria
- **Admin should be able to create a cross-refrence between blog categories and class categories
- **Blog titles from applicable category should display on sidebar
- **Should link to full story in blog section
- **Should be link to category page for more stories
+* Admin should be able to create a cross-refrence between blog categories and class categories
+* Blog titles from applicable category should display on sidebar
+* Should link to full story in blog section
+* Should be link to category page for more stories
 
