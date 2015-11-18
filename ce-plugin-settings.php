@@ -65,6 +65,20 @@ if(!class_exists("CE_Plugin_Settings")) {
 				CE_Plugin_Config::get_options_menu_slug(), 
 				CE_Plugin_Config::get_options_section_id(),
 				array( "field" => "cce-user_key") );
+                        add_settings_field(
+				"cce-post_type", 
+				"CustomPress Post Type", 
+				array($this, "settings_field_input_text"), 
+				CE_Plugin_Config::get_options_menu_slug(), 
+				CE_Plugin_Config::get_options_section_id(),
+				array( "field" => "cce-post_type") );
+                        add_settings_field(
+				"cce-taxonomy", 
+				"CustomPress Taxonomy", 
+				array($this, "settings_field_input_text"), 
+				CE_Plugin_Config::get_options_menu_slug(), 
+				CE_Plugin_Config::get_options_section_id(),
+				array( "field" => "cce-taxonomy") );
 		}
 		
 		//callback function for outputting settings fields with text input (not textarea)
@@ -102,6 +116,12 @@ if(!class_exists("CE_Plugin_Settings")) {
         	if( isset( $input["cce-user_key"] ) ) {
             	$new_input["cce-user_key"] = sanitize_text_field( $input["cce-user_key"] );
 			}
+                if( isset( $input["cce-post_type"] ) ) {
+            	$new_input["cce-post_type"] = sanitize_text_field( $input["cce-post_type"] );
+			}
+                 if( isset( $input["cce-taxonomy"] ) ) {
+            	$new_input["cce-taxonomy"] = sanitize_text_field( $input["cce-taxonomy"] );
+                        }
 			
         	return $new_input;
 		}
@@ -126,6 +146,18 @@ if(!class_exists("CE_Plugin_Settings")) {
 		public static function get_user_key()
 		{
 			return self::get_plugin_setting("cce-user_key");
+		}
+                
+                //static function to get the CE post type
+		public static function get_ce_post_type()
+		{
+			return self::get_plugin_setting("cce-post_type");
+		}
+                
+                //static function to get the CE taxonomy
+		public static function get_ce_taxonomy()
+		{
+			return self::get_plugin_setting("cce-taxonomy");
 		}
 	}
 }
