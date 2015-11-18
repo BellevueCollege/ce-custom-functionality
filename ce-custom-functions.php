@@ -139,7 +139,7 @@ if(!class_exists('Ce_Widget')) {
         
                 // Check if contact title is set
                 if ( $ce_widget_title ) {                    
-                    $content .= "<h2 class='widget-title content-padding'>" .$before_title . $ce_widget_title . $after_title ."</h2>";
+                    $content .= "<h2 class='widget-title content-padding'>"  . $ce_widget_title ."</h2>";
                 }
                 $content .= "<ul class='latest-posts'>";
                 $the_query = new WP_Query(
