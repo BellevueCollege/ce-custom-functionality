@@ -1,6 +1,6 @@
 # Continuing Education Custom Functions Plugin
 
-This plugin provides custom functions needed for the Continuing Education website to be integrated with our main Wordpress website.
+This plugin provides custom functions needed for the Continuing Education website to be integrated with our main Wordpress website. Its also creates a widget that can be used to display posts linked to Custompress Custom Postype using Custompress Taxonomy.
 
 ##Settings
 
@@ -31,6 +31,10 @@ _Frontend example_
 		$category = CE_Custom_Functions::cecf_get_category_by_id("1882");
 		$course = CE_Custom_Functions::cecf_get_course_by_id("12662");
 	}
-	
-##CE Widget
-Creates a widget that can be used to display posts linked to Custompress Custom Postype using Custompress Taxonomy.
+
+##Acceptance Criteria
+ **Admin should be able to create a cross-refrence between blog categories and class categories
+ **Blog titles from applicable category should display on sidebar
+ **Should link to full story in blog section
+ **Should be link to category page for more stories
+
