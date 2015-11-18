@@ -9,6 +9,8 @@ After activation, settings for the plugin can be updated via a submenu "CE Custo
 ###CampusCE settings
 - **CampusCE data URL** - The URL used to retrieve CampusCE data
 - **CampusCE user key** - The special user key that is required to use the data URL
+- **CustomPress Post Type** - The Post type created in Custompress plugin.
+- **CustomPress Taxonomy** - The Taxonomy created in Custompress plugin.
 
 ##Functions
 
@@ -29,3 +31,6 @@ _Frontend example_
 		$category = CE_Custom_Functions::cecf_get_category_by_id("1882");
 		$course = CE_Custom_Functions::cecf_get_course_by_id("12662");
 	}
+	
+##CE Widget
+Creates a widget that can be used to display posts linked to Custompress Custom Postype using Custompress Taxonomy.
