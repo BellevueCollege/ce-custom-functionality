@@ -11,6 +11,7 @@ After activation, settings for the plugin can be updated via a submenu "CE Custo
 - **CampusCE user key** - The special user key that is required to use the data URL
 - **CustomPress Post Type** - The Post type created in Custompress plugin.
 - **CustomPress Taxonomy** - The Taxonomy created in Custompress plugin.
+- **CustomPress Field Id** - The Field Id created in Custompress plugin.
 
 ##Functions
 
