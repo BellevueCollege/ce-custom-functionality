@@ -79,6 +79,13 @@ if(!class_exists("CE_Plugin_Settings")) {
 				CE_Plugin_Config::get_options_menu_slug(), 
 				CE_Plugin_Config::get_options_section_id(),
 				array( "field" => "cce-taxonomy") );
+                        add_settings_field(
+				"cce-field-id", 
+				"CustomPress Field Id", 
+				array($this, "settings_field_input_text"), 
+				CE_Plugin_Config::get_options_menu_slug(), 
+				CE_Plugin_Config::get_options_section_id(),
+				array( "field" => "cce-field-id") );
 		}
 		
 		//callback function for outputting settings fields with text input (not textarea)
@@ -122,6 +129,9 @@ if(!class_exists("CE_Plugin_Settings")) {
                  if( isset( $input["cce-taxonomy"] ) ) {
             	$new_input["cce-taxonomy"] = sanitize_text_field( $input["cce-taxonomy"] );
                         }
+                 if( isset( $input["cce-field-id"] ) ) {
+            	$new_input["cce-field-id"] = sanitize_text_field( $input["cce-field-id"] );
+                        }
 			
         	return $new_input;
 		}
@@ -158,6 +168,12 @@ if(!class_exists("CE_Plugin_Settings")) {
 		public static function get_ce_taxonomy()
 		{
 			return self::get_plugin_setting("cce-taxonomy");
+		}
+                
+                //static function to get the CE Field ID
+		public static function get_ce_field_id()
+		{
+			return self::get_plugin_setting("cce-field-id");
 		}
 	}
 }
