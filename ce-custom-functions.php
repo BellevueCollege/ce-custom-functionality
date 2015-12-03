@@ -8,9 +8,38 @@ if(!class_exists('CE_Custom_Functions')) {
 		//get CampusCE courses by category ID
 		public static function cecf_get_courses_by_category_id($category_id) {
 			$data_url = sprintf(CE_Plugin_Settings::get_data_url() . "?CategoryID=%s", esc_attr($category_id));
-			$courses = CE_Custom_Functions::cecf_call_data_url($data_url);
+			$data = CE_Custom_Functions::cecf_call_data_url($data_url);
+			
+			//loop through all returned classes to extract unique courses
+			$already_processed = array();	//keep track of courses already processed
+			$courses = array();	//keep track of courses to return
+			$classes = $data->Class;	//get only class data
+			if ( !empty($classes) ) {
+				foreach($classes as $class){
+					if ( !in_array($class->CourseID, $already_processed) ) {
+						//not already processed, so create course object with relevant data and add to courses array
+						$obj = new StdClass();
+						$obj->CourseID = (string) $class->CourseID;
+						$obj->Title = trim((string) $class->Title);
+						$obj->WebDescr = trim((string) $class->WebDescr);
+						$obj->CategoryID = (string) $class->CategoryID;
+						$obj->NewTag = (string) $class->NewTag;
+						$courses[] = $obj;
+						$already_processed[] = (string) $class->CourseID;	//add courseID to list of processed courses
+						//var_dump($obj);
+					}
+				}
+			}
 			//var_dump($courses);
 			return $courses;
+		}
+		
+		//get CampusCE classes by category ID
+		public static function cecf_get_classes_by_category_id($category_id) {
+			$data_url = sprintf(CE_Plugin_Settings::get_data_url() . "?CategoryID=%s", esc_attr($category_id));
+			$classes = CE_Custom_Functions::cecf_call_data_url($data_url);
+			//var_dump($classes);
+			return $classes->Class;
 		}
 		
 		//get CampusCE category by ID
@@ -27,13 +56,14 @@ if(!class_exists('CE_Custom_Functions')) {
 			return $category;
 		}
 		
+		/** REMOVING for now as this call doesn't return the data as expected **/
 		//get single CampusCE course by ID
-		public static function cecf_get_course_by_id($course_id) {
+		/*public static function cecf_get_course_by_id($course_id) {
 			$data_url = sprintf(CE_Plugin_Settings::get_data_url() . "?CourseID=%s", esc_attr($course_id));
 			$course = CE_Custom_Functions::cecf_call_data_url($data_url);
 			//var_dump($course);
 			return $course;
-		}
+		}*/
 		
 		//call data source to return information
 		private static function cecf_call_data_url($data_url){
