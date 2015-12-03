@@ -44,7 +44,7 @@ _Frontend example_
 	if ( is_plugin_active('ce-custom-functions/ce-custom-functionality.php') ) { 
 		$courses = CE_Custom_Functions::cecf_get_courses_by_category_id("1882");
 		$category = CE_Custom_Functions::cecf_get_category_by_id("1882");
-		$classes = CE_Custom_Functions::cecf_get_classes_by_category_id("12662");
+		$classes = CE_Custom_Functions::cecf_get_classes_by_category_id("1882");
 	}
 
 ## Widget
