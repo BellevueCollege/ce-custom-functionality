@@ -4,9 +4,9 @@ Plugin Name: Continuing Education Custom Functionality
 Plugin URI: https://github.com/BellevueCollege/
 Description: Custom functions for Continuing Education
 Author: Bellevue College Integration Team
-Version: 0.0.0.1
+Version: 1
 Author URI: http://www.bellevuecollege.edu
-GitHub Plugin URI: BellevueCollege/ce-custom-functions
+GitHub Plugin URI: BellevueCollege/ce-custom-functionality
 */
 defined( 'ABSPATH' ) OR exit;
 
