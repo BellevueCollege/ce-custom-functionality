@@ -38,14 +38,47 @@ All return an object generated from the data XML as returned from CampusCE. All 
 
 ###Example usage
 
-_Frontend example_
+_Frontend PHP example_
+```PHP
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if ( is_plugin_active('ce-custom-functions/ce-custom-functionality.php') ) { 
+	$courses = CE_Custom_Functions::cecf_get_courses_by_category_id("1882");
+	$category = CE_Custom_Functions::cecf_get_category_by_id("1882");
+	$classes = CE_Custom_Functions::cecf_get_classes_by_category_id("1882");
+}
+```
+_Frontend AJAX example_
+```JavaScript
+<script type="text/javascript">
+	jQuery( document ).ready( function( ) {
+		// Get data from WordPress
+		jQuery.post (
+			"<?php echo admin_url( 'admin-ajax.php' ); ?>",
+			{
+				action:   'cecf_ajax_get_data',
+				catid:    'CAMPUSCE CATGEORY ID',
+			},
+			function( campusce_data ) {
+				var data = campusce_data; // Data from CampusCE
+				var output = '';
 
-	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	if ( is_plugin_active('ce-custom-functions/ce-custom-functionality.php') ) { 
-		$courses = CE_Custom_Functions::cecf_get_courses_by_category_id("1882");
-		$category = CE_Custom_Functions::cecf_get_category_by_id("1882");
-		$classes = CE_Custom_Functions::cecf_get_classes_by_category_id("1882");
-	}
+				if ( typeof data == 'object' ) { // verify data is JSON
+					jQuery.each( data.courses, function( i, course ) {
+						// Set Variables
+						var title = course.Title;
+						var descr = course.WebDescr;
+						output += title + ' ' + descr;
+					});
+				} else { // if non - JSON data is returned
+					output += data;
+				}
+				// Output
+				jQuery("#response_area_id").html( output );
+			}
+		);
+	});
+</script>
+```
 
 ## Widget
 

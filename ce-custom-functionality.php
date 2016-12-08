@@ -4,7 +4,7 @@ Plugin Name: Continuing Education Custom Functionality
 Plugin URI: https://github.com/BellevueCollege/
 Description: Custom functions for Continuing Education
 Author: Bellevue College Integration Team
-Version: 1.1
+Version: 1.1.0.1
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: BellevueCollege/ce-custom-functionality
 */
@@ -14,6 +14,10 @@ require_once("ce-plugin-config.php");
 require_once("ce-plugin-settings.php");
 require_once("ce-custom-functions.php");
 require_once ("ce-widget.php");
+
+// register AJAX endpoints
+add_action( 'wp_ajax_cecf_ajax_get_data', array('CE_Custom_Functions','cecf_ajax_course_info' ) ); // logged in users
+add_action( 'wp_ajax_nopriv_cecf_ajax_get_data', array('CE_Custom_Functions','cecf_ajax_course_info' ) ); // anonymous users
 
 // register widget
 add_action( 'widgets_init', create_function( '', 'register_widget( "ce_widget" );' ) );
