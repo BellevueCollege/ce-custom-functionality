@@ -3,7 +3,7 @@ require_once("ce-plugin-config.php");
 require_once("ce-plugin-settings.php");
 if(!class_exists('CE_Custom_Functions')) {
 	
-	class CE_Custom_Functions { 	
+	class CE_Custom_Functions {
 
 		//get CampusCE courses by category ID
 		public static function cecf_get_courses_by_category_id($category_id) {
@@ -100,56 +100,37 @@ if(!class_exists('CE_Custom_Functions')) {
 			// Get CampusCE category ID from AJAX post
 			$category_ID = $_POST['catid'];
 
-			// Set name of transient used to cache data
-			$transient_name = 'cecfdata' . $category_ID;
-
-			// Length of time to cache data (hardcoded here)
-			$transient_expiration = 15 * MINUTE_IN_SECONDS;
-
 			// Verify ID format (4 numeric chars)
 			if ( preg_match( '/^(\d{4})$/', $category_ID ) ) {
 
-				// Fetch data from transient, if available (data caching)
-				$data = get_transient( $transient_name );
+				// Retrieve data from CampusCE
+				$courses   = CE_Custom_Functions::cecf_get_courses_by_category_id ( $category_ID );
+				$category  = CE_Custom_Functions::cecf_get_category_by_id ( $category_ID );
 
-				// if transient is not set, or is expired
-				if ( false === $data ) {
-
-					// Retrieve data from CampusCE
-					$courses   = CE_Custom_Functions::cecf_get_courses_by_category_id ( $category_ID );
-					$category  = CE_Custom_Functions::cecf_get_category_by_id ( $category_ID );
-
-					// If there are courses
-					if ( ! empty( $courses ) ) {
-						// Truncate Description
-						foreach ( $courses as $class ) {
-							if ( empty( $class->CourseID ) == FALSE ) {
-								//Load title and desc in to variables, and force tags to be balanced
-								$class_title = balanceTags( $class->Title, true );
-								$class->Title = $class_title;
-								$class_desc  = balanceTags( wp_trim_words( $class->WebDescr, 40, '...' ), true );
-								$class->WebDescr = $class_desc;
-							}
+				// If there are courses
+				if ( ! empty( $courses ) ) {
+					// Truncate Description
+					foreach ( $courses as $class ) {
+						if ( empty( $class->CourseID ) == FALSE ) {
+							//Load title and desc in to variables, and force tags to be balanced
+							$class_title = balanceTags( $class->Title, true );
+							$class->Title = $class_title;
+							$class_desc  = balanceTags( wp_trim_words( $class->WebDescr, 40, '...' ), true );
+							$class->WebDescr = $class_desc;
 						}
-
-						// Build data array from course and category arrays
-						$data = array("courses" => (array)$courses, "category" => (array)$category );
-
-						// Send JSON
-						CE_Custom_Functions::cecf_send_json( $data );
-
-						// Cache data for next time!
-						set_transient( $transient_name, $data, $transient_expiration );
-
-					} else {
-						// Message if there are no classes
-						echo '<p>Courses have begun. Please check back for future offerings.</p><p>Also, check out our <a href="http://www.campusce.net/BC/category/category.aspx">online catalog</a> for other offerings.</p>';
 					}
 
-				} else {
-					// If transient is set, send it instead
+					// Build data array from course and category arrays
+					$data = array("courses" => (array)$courses, "category" => (array)$category );
+
+					// Send JSON
 					CE_Custom_Functions::cecf_send_json( $data );
+
+				} else {
+					// Message if there are no classes
+					echo '<p>Courses have begun. Please check back for future offerings.</p><p>Also, check out our <a href="http://www.campusce.net/BC/category/category.aspx">online catalog</a> for other offerings.</p>';
 				}
+
 			} else {
 				// Return error if ID format is incorrect
 				echo '<p>Error: Incorrect CampusCE ID Format</p>';
