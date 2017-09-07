@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# ce-custom-functions
+Wordpress plugin for Continuing Education custom functions
+=======
 # Continuing Education Custom Functions Plugin
 
 This plugin provides custom functions needed for the Continuing Education website to be integrated with our main WordPress website. It also provides a widget that can be used to display posts linked to a CustomPress custom post type using CustomPress taxonomy.
@@ -88,3 +92,4 @@ _Frontend AJAX example_
 * Should link to full story in blog section
 * Should be link to category page for more stories
 
+>>>>>>> release-v1

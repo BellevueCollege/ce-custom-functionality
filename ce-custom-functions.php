@@ -148,10 +148,3 @@ if ( class_exists( 'CE_Plugin_Settings' ) ) {
 	//instantiate settings class
 	$ce_plugin_settings = new CE_Plugin_Settings();
 }
-
-
-
-// Serve class data via AJAX
-
-add_action( 'wp_ajax_cecf_ajax_get_data', 'cecf_ajax_action' );
-add_action( 'wp_ajax_nopriv_cecf_ajax_get_data', 'cecf_ajax_action' ); // need this to serve non logged in users
