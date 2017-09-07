@@ -8,16 +8,16 @@ Version: 1.2
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: BellevueCollege/ce-custom-functionality
 */
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) || exit;
 
-require_once("ce-plugin-config.php");
-require_once("ce-plugin-settings.php");
-require_once("ce-custom-functions.php");
-require_once ("ce-widget.php");
+require_once( 'ce-plugin-config.php' );
+require_once( 'ce-plugin-settings.php' );
+require_once( 'ce-custom-functions.php' );
+require_once( 'ce-widget.php' );
 
 // register AJAX endpoints
-add_action( 'wp_ajax_cecf_ajax_get_data', array('CE_Custom_Functions','cecf_ajax_course_info' ) ); // logged in users
-add_action( 'wp_ajax_nopriv_cecf_ajax_get_data', array('CE_Custom_Functions','cecf_ajax_course_info' ) ); // anonymous users
+add_action( 'wp_ajax_cecf_ajax_get_data', array( 'CE_Custom_Functions', 'cecf_ajax_course_info' ) ); // logged in users
+add_action( 'wp_ajax_nopriv_cecf_ajax_get_data', array( 'CE_Custom_Functions', 'cecf_ajax_course_info' ) ); // anonymous users
 
 // register widget
 add_action( 'widgets_init', create_function( '', 'register_widget( "ce_widget" );' ) );
@@ -41,7 +41,7 @@ function ce_register_widget_area() {
 		'after_title' => '</h2>',
 	) );
 }
-add_action( 'mayflower_register_sidebar', 'ce_register_widget_area', 10);
+add_action( 'mayflower_register_sidebar', 'ce_register_widget_area', 10 );
 
 // Filter active sidebar function to insert new sidebar
 function ce_active_widget_area( $active ) {
@@ -53,7 +53,7 @@ function ce_active_widget_area( $active ) {
 		return false;
 	}
 }
-add_filter( 'mayflower_active_sidebar', 'ce_active_widget_area', 1, 10);
+add_filter( 'mayflower_active_sidebar', 'ce_active_widget_area', 1, 10 );
 
 // Display new widget area
 function ce_display_widget_area() {
@@ -63,4 +63,4 @@ function ce_display_widget_area() {
 		endif;
 	endif;
 }
-add_action( 'mayflower_display_sidebar', 'ce_display_widget_area', 10);
+add_action( 'mayflower_display_sidebar', 'ce_display_widget_area', 10 );
