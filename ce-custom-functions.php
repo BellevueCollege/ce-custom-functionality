@@ -68,7 +68,7 @@ if ( ! class_exists( 'CE_Custom_Functions' ) ) {
 
 		//call data source to return information
 		private static function cecf_call_data_url( $data_url ){
-			$user_key = base64_encode( CE_Plugin_Settings::get_user_key() );	//encode user key
+			$user_key = base64_encode( CE_Plugin_Settings::get_user_key() ); //encode user key
 			$output = null;
 
 			try {
@@ -86,27 +86,23 @@ if ( ! class_exists( 'CE_Custom_Functions' ) ) {
 			return $output;
 		}
 
+		/*
+		 * cecf_rest_course_info() is a callback function passed into a registered route
+		 * to send class data via REST
+		 * @param WP_REST_Request $request The request object being served from the registered route
+		 * @return WP_REST_Response $data in JSON, an array of courses and the corresponding category
+ 		*/
+		public static function cecf_rest_course_info( WP_REST_Request $request) {
 
-		/* Echos JSON without die(). Same functionality as wp_send_json(),
-		 * but wp_send_json() dies automatically, which seems to cause issues. */
-		private static function cecf_send_json( $data ) {
-			@header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
-			echo json_encode( $data );
-		}
-
-		// Send class data via AJAX
-		public static function cecf_ajax_course_info( ) {
-			// check_ajax_referer( 'campusce-ajax-request', 'security', false ); // Automatically dies if security check doesn't pass. Not currently functional!
-
-			// Get CampusCE category ID from AJAX post
-			$category_ID = $_POST['catid'];
-
-			// Verify ID format (4 numeric chars)
-			if ( preg_match( '/^(\d{4})$/', $category_ID ) ) {
+			$parameters = $request->get_url_params(); //get the URL parameters from the request
+			$rest_url_category_ID = $parameters['id']; //get only the ID passed into URL parameters from the registered route
+			
+			//Verify ID format (4 numeric chars)
+			if ( preg_match( '/^(\d{4})$/', $rest_url_category_ID ) ) {
 
 				// Retrieve data from CampusCE
-				$courses   = CE_Custom_Functions::cecf_get_courses_by_category_id( $category_ID );
-				$category  = CE_Custom_Functions::cecf_get_category_by_id( $category_ID );
+				$courses   = CE_Custom_Functions::cecf_get_courses_by_category_id( $rest_url_category_ID );
+				$category  = CE_Custom_Functions::cecf_get_category_by_id( $rest_url_category_ID );
 
 				// If there are courses
 				if ( ! empty( $courses ) ) {
@@ -127,9 +123,8 @@ if ( ! class_exists( 'CE_Custom_Functions' ) ) {
 						'category' => (array) $category,
 					);
 
-					// Send JSON
-					CE_Custom_Functions::cecf_send_json( $data );
-
+					//send the data as a JSON response
+					return new WP_Rest_Response($data, 200);
 				} else {
 					// Message if there are no classes
 					echo '<p>Courses have begun. Please check back for future offerings.</p><p>Also, check out our <a href="http://www.campusce.net/BC/category/category.aspx">online catalog</a> for other offerings.</p>';
@@ -141,7 +136,6 @@ if ( ! class_exists( 'CE_Custom_Functions' ) ) {
 			// Don't print any extra information
 			die();
 		}
-
 	}
 }
 if ( class_exists( 'CE_Plugin_Settings' ) ) {
