@@ -1,25 +1,21 @@
-<<<<<<< HEAD
-# ce-custom-functions
-Wordpress plugin for Continuing Education custom functions
-=======
 # Continuing Education Custom Functions Plugin
 
 This plugin provides custom functions needed for the Continuing Education website to be integrated with our main WordPress website. It also provides a widget that can be used to display posts linked to a CustomPress custom post type using CustomPress taxonomy.
 
-##Settings
+## Settings
 
 After activation, settings for the plugin can be updated via a submenu "CE Custom Functions" under the main administrative Settings menu. Available settings:
 
-###CampusCE settings
+### CampusCE settings
 - **CampusCE data URL** - The URL used to retrieve CampusCE data
 - **CampusCE user key** - The special user key that is required to use the data URL
 - **CustomPress post type** - The post type created in CustomPress plugin.
 - **CustomPress taxonomy** - The taxonomy created in CustomPress plugin.
 - **CustomPress field ID** - The field ID created in CustomPress plugin.
 
-##Functions
+## Functions
 
-###CampusCE functions
+### CampusCE functions
 All return an object generated from the data XML as returned from CampusCE. All are static methods of the plugin's `CE_Custom_Functions` class.
 
 > Note: The functions now distinguish between courses and classes. Per the data, classes are an offering of a course. As such, pulling classes will return all available offerings of a course.
@@ -40,7 +36,7 @@ All return an object generated from the data XML as returned from CampusCE. All 
 
 	Removed as did not return expected results.
 
-###Example usage
+### Example usage
 
 _Frontend PHP example_
 ```PHP
@@ -86,10 +82,8 @@ _Frontend AJAX example_
 
 ## Widget
 
-###Acceptance criteria
+### Acceptance criteria
 * Admin should be able to create a cross-reference between blog categories and class categories
 * Blog titles from applicable category should display on sidebar
 * Should link to full story in blog section
 * Should be link to category page for more stories
-
->>>>>>> release-v1
