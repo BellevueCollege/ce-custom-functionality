@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Continuing Education Custom Functionality
-Plugin URI: https://github.com/BellevueCollege/
+Plugin URI: https://github.com/BellevueCollege/ce-custom-functionality
 Description: Custom functions for Continuing Education
 Author: Bellevue College Integration Team
-Version: 1.2.1
+Version: 1.3 #{versionStamp}#
 Author URI: http://www.bellevuecollege.edu
 GitHub Plugin URI: BellevueCollege/ce-custom-functionality
 */
