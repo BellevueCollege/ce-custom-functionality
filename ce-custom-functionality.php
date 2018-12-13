@@ -19,7 +19,7 @@ class CE_Custom_Functionality {
 
 	public function __construct() {
 		add_action( 'rest_api_init' , array( $this, 'rest_register_routes') ); //initiate REST API
-		add_action( 'widgets_init', create_function( '', 'register_widget( "ce_widget" );' ) ); // register widget
+		add_action( 'widgets_init', function() { register_widget( 'ce_widget' ); } ); // register widget
 		add_action( 'mayflower_register_sidebar', array( $this, 'ce_register_widget_area'), 10 );
 		add_filter( 'mayflower_active_sidebar', array( $this, 'ce_active_widget_area'), 1, 10 );
 		add_action( 'mayflower_display_sidebar', array( $this, 'ce_display_widget_area'), 10 );
