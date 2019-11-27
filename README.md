@@ -13,6 +13,29 @@ After activation, settings for the plugin can be updated via a submenu "CE Custo
 - **CustomPress taxonomy** - The taxonomy created in CustomPress plugin.
 - **CustomPress field ID** - The field ID created in CustomPress plugin.
 
+### Conversion from version 1.x
+Prior to version 2.0, this plugin used CustomPress to manage Custom Post Types, Taxonomies, and Fields. 
+
+* In CustomPress settings, delete the Post Type and Taxonomy
+* Take a note of the Custom Field name- should be something like `_ct_text_562fe946ccfcd`
+* Delete the Custom Field, making sure **not** to delete data.
+* Follow the instructions in **Setup** (below).
+* Double check that the Advanced Custom Field name matches the the field name you took a note of before
+* Deactivate/Remove CustomPress
+
+### Setup (version 2.0 +)
+* Activate Plugin (Single Site)
+* Install Advanced Custom Fields from the WordPress plugin repository
+	* Go to Custom Fields -> Tools.
+	* In the Import Field Groups area, select file, and navigate to the `acf-ce-fields.json` file in this repo
+	* Import
+* Go to Settings -> CE Custom Functions
+	* Define your Data URL and User Key with data from CampusCE
+	* Post Type should be set to `ceprograms`
+	* Taxonomy should be set to `ce_program_cross_ref`
+	* Field ID should be set to `_ct_text_562fe946ccfcd`
+
+
 ## Functions
 
 ### CampusCE functions
