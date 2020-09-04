@@ -13,25 +13,40 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/** Plugin Configuration Model */
 require_once 'ce-plugin-config.php';
+
+/** Settings Interface */
 require_once 'ce-plugin-settings.php';
 
+/** Programs Custom Post Type */
 require_once 'post-types/ceprograms.php';
+
+/** Cross Reference Taxonomy */
 require_once 'taxonomies/ce-program-cross-ref.php';
 
+/** The guts of the thing */
 require_once 'ce-custom-functions.php';
+
+/** Widget */
 require_once 'ce-widget.php';
 
+/**
+ * Main Class - Register All The Things!
+ */
 class CE_Custom_Functionality {
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
-		add_action( 'rest_api_init', array( $this, 'rest_register_routes' ) ); // initiate REST API
+		add_action( 'rest_api_init', array( $this, 'rest_register_routes' ) ); // initiate REST API.
 		add_action(
 			'widgets_init',
 			function() {
 				register_widget( 'ce_widget' );
 			}
-		); // register widget
+		); // register widget.
 		add_action( 'mayflower_register_sidebar', array( $this, 'ce_register_widget_area' ), 10 );
 		add_filter( 'mayflower_active_sidebar', array( $this, 'ce_active_widget_area' ), 1, 10 );
 		add_action( 'mayflower_display_sidebar', array( $this, 'ce_display_widget_area' ), 10 );
@@ -43,6 +58,7 @@ class CE_Custom_Functionality {
 	 * Register the REST routes
 	 */
 
+	 /** @var int $rest_version Version Number. */
 	public static $rest_version = '1'; // initiate version of this REST API
 
 	// register rest endpoints and provide callback to the handler
