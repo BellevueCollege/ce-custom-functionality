@@ -1,0 +1,46 @@
+[
+    {
+        "key": "group_5ddf0563e2b0f",
+        "title": "Program Area Fields",
+        "fields": [
+            {
+                "key": "field_5ddf05b9065a3",
+                "label": "CampusCE Category ID",
+                "name": "_ct_text_562fe946ccfcd",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "min": "",
+                "max": "",
+                "step": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "ceprograms"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "side",
+        "style": "seamless",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
+    }
+]

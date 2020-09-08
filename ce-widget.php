@@ -72,7 +72,7 @@ if ( ! class_exists( 'Ce_Widget' ) ) {
 					$content .= '<div class="wp-widget wp-widget-global widget_recent_entries">';
 					// Check if contact title is set
 					if ( $ce_widget_title ) {
-						$content .= "<h2 class='widget-title content-padding'>" . $ce_widget_title . '</h2>';
+						$content .= "<h2 class='widget-title px-3'>" . $ce_widget_title . '</h2>';
 					}
 					$content .= "<ul class='latest-posts'>";
 					$the_query = new WP_Query(
