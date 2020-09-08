@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/BellevueCollege/ce-custom-functionality
  * Description: Custom functions for Continuing Education
  * Author: Bellevue College Integration Team
- * Version: 2.0.0-dev1 #{versionStamp}#
+ * Version: 2.0 #{versionStamp}#
  * Author URI: http://www.bellevuecollege.edu
  * GitHub Plugin URI: BellevueCollege/ce-custom-functionality
  *
